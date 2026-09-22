@@ -171,8 +171,30 @@ src="https://sdk.minepi.com/pi-sdk.js"></script>
 </nav>
 
 <script> 
-function paywithPi() { 
-alert("آماده پرداخت باPI"); }
+function paywithPi() {
+  const paymentData = {
+    amount: 1,
+    memo: "خرید از PiStore",
+    metadata: {
+      product: "محصول دیجیتال"
+    }
+  };
+
+  Pi.createPayment(paymentData, {
+    onReadyForServerApproval: function(paymentId) {
+      console.log("تأیید پرداخت:", paymentId);
+    },
+    onReadyForServerCompletion: function(paymentId, txid) {
+      console.log("تکمیل پرداخت:", paymentId, txid);
+    },
+    onCancel: function(paymentId) {
+      console.log("پرداخت لغو شد:", paymentId);
+    },
+    onError: function(error, payment) {
+      console.log("خطای پرداخت:", error);
+    }
+  });
+}
   
   </script>
   </body>
