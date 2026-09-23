@@ -176,13 +176,30 @@ Pi.authenticate(["username", "payments"], function(auth) {
 <span>👤<br>حساب من</span>
 </nav>
 
-
 <script>
 function paywithPi() {
-  alert("آماده پرداخت با PI");
+  Pi.createPayment({
+    amount: 1,
+    memo: "خرید از PiStore",
+    metadata: {
+      product: "محصول دیجیتال"
+    }
+  }, {
+    onReadyForServerApproval: function(paymentId) {
+      console.log("Payment ID:", paymentId);
+    },
+    onReadyForServerCompletion: function(paymentId, txid) {
+      console.log("Transaction:", txid);
+    },
+    onCancel: function(paymentId) {
+      console.log("پرداخت لغو شد");
+    },
+    onError: function(error, payment) {
+      console.log("خطا:", error);
+    }
+  });
 }
 </script>
-
   
   
   </body>
