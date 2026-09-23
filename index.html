@@ -115,6 +115,12 @@ src="https://sdk.minepi.com/pi-sdk.js"></script>
   <script>
   Pi.init({ version: "2.0",
   sandbox: true });
+</script><script>
+Pi.authenticate(["username", "payments"], function(auth) {
+  console.log("ورود موفق:", auth.user.username);
+}, function(error) {
+  console.log("خطا:", error);
+});
 </script>
 
   
