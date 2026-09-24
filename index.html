@@ -132,7 +132,21 @@ Pi.authenticate(
   }
 );
 </script>
+<button type="button" onclick="piSignIn()">ورود با Pi</button>
 
+<script>
+function piSignIn() {
+  const state = crypto.randomUUID();
+  sessionStorage.setItem("pi_oauth_state", state);
+
+  Pi.signIn({
+    clientId: "OtAJlVeii3-iL0pITVz_ceFNVmKv5VIKQohuL9ZOWho",
+    redirectUri: "https://pistore2026.github.io/signin/callback",
+    scopes: ["username"],
+    state: state
+  });
+}
+</script>
 <header>
 <h1>🟣 PI | فروشگاه</h1>
 <p>فروشگاه فارسی محصولات و خدمات پی</p>
